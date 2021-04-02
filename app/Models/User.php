@@ -33,4 +33,8 @@ class User extends Model
     public function getAddressAttribute(){
         return $this->attributes['eth_address'];
     }
+
+    public static function findByAddress($address) {
+        return User::where('eth_address', $address)->first();
+    }
 }
