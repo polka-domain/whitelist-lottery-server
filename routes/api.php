@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('hello', function () {
-    return 'Hello Laravel!';
+    return 'Hello Polka Domain!';
+});
+
+Route::prefix('users')->group(function () {
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/{address}', [UserController::class, 'show']);
 });
