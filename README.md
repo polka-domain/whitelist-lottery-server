@@ -17,7 +17,7 @@
 | domain | string | desire domain of user |
 | sign | string | signature of Ethereum address signed by user's wallet |
    
-### 2. Query user
+### 2. Query user's information
 - **Request Path**: /api/users/:eth_address
 - **Request Method**: GET
 - **Request Parameters**:
