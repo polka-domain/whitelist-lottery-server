@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\BadRequestException;
 use App\Helpers\EthereumValidator;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Pelieth\LaravelEcrecover\EthSigRecover;
 
@@ -42,7 +43,7 @@ class UserController extends Controller
         $ethValidator = new EthereumValidator();
         $address = $request->input('eth_address');
         if(!$ethValidator->isAddress($address)) {
-            throw new BadRequestException('Invalid Address');
+            throw new BadRequestException('invalid_address');
         }
 
         // verify signature
@@ -51,7 +52,7 @@ class UserController extends Controller
         $sign = $request->input('sign');
         $recoverAddr = $eth_sig_util->personal_ecRecover($rawAddress, $sign);
         if (strtolower($address) !== strtolower($recoverAddr)) {
-            throw new BadRequestException('Invalid Signature');
+            throw new BadRequestException('invalid_signature');
         }
 
         $user = User::create($request->only([
@@ -76,10 +77,15 @@ class UserController extends Controller
     {
         $ethValidator = new EthereumValidator();
         if(!$ethValidator->isAddress($address)) {
-            throw new BadRequestException('Invalid Address');
+            throw new BadRequestException('invalid_address');
         }
 
-        return User::findByAddress($address);
+        $user = User::findByAddress($address);
+        if (!$user) {
+            throw new ModelNotFoundException();
+        }
+
+        return response($user);
     }
 
     /**
