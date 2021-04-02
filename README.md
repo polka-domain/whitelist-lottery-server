@@ -2,7 +2,7 @@
 
 ## API
 
-1. Submit user's information
+### 1. Submit user's information
 
 - **Request Path**: /api/users
 - **Request Method**: POST
@@ -17,7 +17,7 @@
 | domain | string | desire domain of user |
 | sign | string | signature of Ethereum address signed by user's wallet |
    
-2. Query user
+### 2. Query user
 - **Request Path**: /api/users/:eth_address
 - **Request Method**: GET
 
@@ -26,12 +26,13 @@
 | eth_address | string | Ethereum address of user |
 
 ## Error handle
+### Error response
 | key | type | comment |
 | --- | --- | --- |
 | error | string | error code |
 | msg | string/object | error message |
 
-### Errors
+### Error status
 ##### 400 Bad Request
 ``` json
 {
