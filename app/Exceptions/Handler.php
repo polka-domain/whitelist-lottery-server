@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -43,9 +44,11 @@ class Handler extends ExceptionHandler
         $this->renderable(function (Exception $e) {
             if ($e instanceof ValidationException) {
                 return response($e->errors(), $e->status);
+            } else if ($e instanceof  ModelNotFoundException) {
+                return response($e->getMessage(), 404);
+            } else {
+                return response($e->getMessage(), 400);
             }
-
-            return response($e->getMessage(), 400);
         });
     }
 }
