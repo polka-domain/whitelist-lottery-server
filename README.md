@@ -20,6 +20,7 @@
 ### 2. Query user
 - **Request Path**: /api/users/:eth_address
 - **Request Method**: GET
+- **Request Parameters**:
 
 | key | type | comment |
 | --- | --- | --- |
