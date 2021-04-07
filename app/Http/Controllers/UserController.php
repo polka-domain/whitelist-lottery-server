@@ -48,9 +48,8 @@ class UserController extends Controller
 
         // verify signature
         $eth_sig_util = new EthSigRecover();
-        $rawAddress = hex2bin(substr($address, 2));
         $sign = $request->input('sign');
-        $recoverAddr = $eth_sig_util->personal_ecRecover($rawAddress, $sign);
+        $recoverAddr = $eth_sig_util->personal_ecRecover($address, $sign);
         if (strtolower($address) !== strtolower($recoverAddr)) {
             throw new BadRequestException('invalid_signature');
         }
