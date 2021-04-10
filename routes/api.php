@@ -25,5 +25,5 @@ Route::prefix('users')->group(function () {
 });
 
 Route::get('/whitelist/status', function () {
-    return response();
+    return response('');
 });
