@@ -23,3 +23,7 @@ Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/{address}', [UserController::class, 'show']);
 });
+
+Route::get('/whitelist/status', function () {
+    return response();
+});

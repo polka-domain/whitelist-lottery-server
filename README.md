@@ -16,6 +16,7 @@
 | telegram | string | telegram username of user |
 | domain | string | desire domain of user |
 | sign | string | signature of Ethereum address signed by user's wallet |
+| token | string | user response token provided by the reCAPTCHA client-side |
    
 ### 2. Query user's information
 - **Request Path**: /api/users/:eth_address
@@ -25,6 +26,10 @@
 | key | type | comment |
 | --- | --- | --- |
 | eth_address | string | Ethereum address of user |
+
+### 3. Query whitelist status
+- **Request Path**: /api/whitelist/status
+- **Request Method**: GET
 
 ## Error handle
 ### Error response
