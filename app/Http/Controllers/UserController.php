@@ -37,6 +37,32 @@ class UserController extends Controller
             'telegram' => 'required|starts_with:@',
             'domain' => 'required',
             'sign' => 'required|size:132|starts_with:0x',
+            'token' => 'required',
+        ]);
+
+        // check address
+        $ethValidator = new EthereumValidator();
+        $address = $request->input('eth_address');
+        if(!$ethValidator->isAddress($address)) {
+            throw new BadRequestException('invalid_address');
+        }
+
+        // verify signature
+        $eth_sig_util = new EthSigRecover();
+        $sign = $request->input('sign');
+        $recoverAddr = $eth_sig_util->personal_ecRecover($address, $sign);
+        if (strtolower($address) !== strtolower($recoverAddr)) {
+            throw new BadRequestException('invalid_signature');
+        }
+
+        // recapture
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret' => '6LeEiqMaAAAAAGKfsE0MokVqbFVIEzvAHsz4R0Aq',
+                'response' => $request->input('token'),
+                'remoteip' => $request->ip(),
+            ]
         ]);
 
         // check address
