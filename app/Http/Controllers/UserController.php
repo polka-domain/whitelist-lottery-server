@@ -40,6 +40,12 @@ class UserController extends Controller
             'token' => 'required',
         ]);
 
+        // check timestamp
+        $now = now()->timestamp;
+        if (env('WHITELIST_TIMESTAMP_BEGIN') > $now || $now >= env('WHITELIST_TIMESTAMP_END')) {
+            throw new BadRequestException('function_disabled');
+        }
+
         // check address
         $ethValidator = new EthereumValidator();
         $address = $request->input('eth_address');

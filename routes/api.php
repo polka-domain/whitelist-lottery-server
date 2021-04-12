@@ -25,5 +25,9 @@ Route::prefix('users')->group(function () {
 });
 
 Route::get('/whitelist/status', function () {
-    return response('');
+    $now = now()->timestamp;
+    if (env('WHITELIST_TIMESTAMP_BEGIN') <= $now && $now < env('WHITELIST_TIMESTAMP_END')) {
+        return response('');
+    }
+    return response('', 400);
 });
