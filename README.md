@@ -31,6 +31,22 @@
 - **Request Path**: /api/whitelist/status
 - **Request Method**: GET
 
+### 4. Query airdrop information
+- **Request Path**: /api/airdrops/:eth_address
+- **Request Method**: GET
+- **Request Parameters**:
+
+| key | type | comment |
+| --- | --- | --- |
+| eth_address | string | Ethereum address of user |
+
+- **Response Parameters**:
+
+| key | type | comment |
+| --- | --- | --- |
+| address | string | Ethereum address of user |
+| signature | string | Signature of address |
+
 ## Error handle
 ### Error response
 | key | type | comment |
