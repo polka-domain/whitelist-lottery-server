@@ -73,7 +73,7 @@ class AirdropController extends Controller
         }
 
         return response([
-            'address' => $user['eth_address'],
+            'address' => $address,
             'signature' => $signature,
         ]);
     }
