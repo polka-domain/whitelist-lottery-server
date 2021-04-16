@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\BadRequestException;
 use App\Helpers\EthereumValidator;
 use App\Models\Airdrop;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Pelieth\LaravelEcrecover\EthSigRecover;
@@ -46,9 +47,12 @@ class AirdropController extends Controller
             throw new BadRequestException('invalid_address');
         }
 
-        $user = Airdrop::findByAddress($address);
+        $user = User::findByAddress($address);
         if (!$user) {
-            throw new ModelNotFoundException();
+            $user2 = Airdrop::findByAddress($address);
+            if(!$user2) {
+                throw new ModelNotFoundException();
+            }
         }
 
         // sign message
