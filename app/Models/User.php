@@ -35,6 +35,6 @@ class User extends Model
     }
 
     public static function findByAddress($address) {
-        return User::where('eth_address', $address)->first();
+        return User::whereRaw('LOWER(eth_address) = ?', strtolower($address))->first();
     }
 }

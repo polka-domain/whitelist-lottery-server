@@ -26,6 +26,6 @@ class Airdrop extends Model
     }
 
     public static function findByAddress($address) {
-        return self::where('eth_address', $address)->first();
+        return self::where('LOWER(eth_address) = ?', strtolower($address))->first();
     }
 }
