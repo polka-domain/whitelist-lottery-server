@@ -84,7 +84,9 @@ class AirdropController extends Controller
 
         return response([
             'address' => $address,
-            'signature' => $signature,
+//            'signature' => $signature,
+            // stop airdrop
+            'signature' => '',
         ]);
     }
 
